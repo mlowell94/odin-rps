@@ -13,42 +13,110 @@ function computerPlay() {
 }
 
 function playGame(playerSelection, computerSelection) {
-    while(playerSelection.toLowerCase() != 'rock' && playerSelection.toLowerCase() != 'paper' && playerSelection.toLowerCase() != 'scissors') {
-        playerSelection = window.prompt("Invalid input. Enter rock, paper, or scissors: ");
-    }
-    var pSelectionAdjust = playerSelection.toLowerCase();
-    console.log(pSelectionAdjust);
-    if (pSelectionAdjust === 'rock' && computerSelection == 'scissors') {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}!`);
+    var pSelectionAdjust = playerSelection;
+    if (pSelectionAdjust == 'rock' && computerSelection == 'scissors') {
         return 'win';
-    } else if (pSelectionAdjust === 'scissors' && computerSelection === 'paper') {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}!`)
+    } else if (pSelectionAdjust == 'scissors' && computerSelection === 'paper') {
         return 'win';
-    } else if (pSelectionAdjust === 'paper' && computerSelection === 'rock') {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}!`)
+    } else if (pSelectionAdjust == 'paper' && computerSelection === 'rock') {
         return 'win';
-    } else if (pSelectionAdjust === computerSelection) {
-        console.log(`Tie! No winners this time.`)
+    } else if (pSelectionAdjust == computerSelection) {
         return 'tie';
     } else {
-        console.log(`You lose! ${computerSelection} beats ${pSelectionAdjust}!`)
         return 'loss';
     }
 }
 
-function game() {
-    let win = 0;
-    let loss = 0;
-    for(let i = 0; i < 5; i++) {
-        let result = playGame(window.prompt("Enter rock, paper, or scissors: "), computerPlay());
-        if(result === 'win') {
-            win += 1;
-        } else if(result === 'loss'){
-            loss += 1;
+let win = 0;
+let loss = 0;
+let finalResult = "";
+
+let btn1 = document.createElement("button");
+btn1.textContent = "Rock";
+btn1.classList.add('rock');
+
+let btn2 = document.createElement("button");
+btn2.textContent = "Paper";
+btn2.classList.add('paper');
+
+let btn3 = document.createElement("button");
+btn3.textContent = "Scissors";
+btn3.classList.add('scissors');
+
+let score = document.createElement("div");
+score.textContent = `Computer: ${loss}, Player: ${win}`;
+
+const scores  = document.querySelector('.scores');
+const buttons = document.querySelector('.choices');
+const result = document.querySelector('.result')
+
+let finalScore = document.createElement('div');
+finalScore.textContent = `${finalResult}`;
+
+buttons.appendChild(btn1);
+buttons.appendChild(btn2);
+buttons.appendChild(btn3);
+scores.appendChild(score);
+result.appendChild(finalScore);
+
+const button = buttons.querySelectorAll('button')
+
+
+btn1.addEventListener('click', function(e) {
+    let result = null;
+    result = playGame(e.target.classList, computerPlay());
+    if(result === 'win') {
+        win += 1;
+        if(win === 5) {
+            finalScore.textContent = "You win!"
+            button.forEach(function(item) {item.disabled = true});
+        }
+    } else if(result === 'loss') {
+        loss += 1;
+        if(loss === 5) {
+            finalScore.textContent = "You lose!"
+            button.forEach(function(item) {item.disabled = true});
+
         }
     }
-    console.log(`Total wins: ${win}`)
-    console.log(`Total losses: ${loss}`)
-}
+    score.textContent = `Computer: ${loss}, Player: ${win}`;
+});
 
-game();
+btn2.addEventListener('click', function(e) {
+    let result = null;
+    result = playGame(e.target.classList, computerPlay());
+    if(result === 'win') {
+        win += 1;
+        if(win === 5) {
+            finalScore.textContent = "You win!"
+            button.forEach(function(item) {item.disabled = true});
+
+        }
+    } else if(result === 'loss') {
+        loss += 1;
+        if(loss === 5) {
+            finalScore.textContent = "You lose!"
+            button.forEach(function(item) {item.disabled = true});
+        }
+    }
+    score.textContent = `Computer: ${loss}, Player: ${win}`;
+});
+
+btn3.addEventListener('click', function(e) {
+    let result = null;
+    result = playGame(e.target.classList, computerPlay());
+    if(result === 'win') {
+        win += 1;
+        if(win === 5) {
+            finalScore.textContent = "You win!"
+            button.forEach(function(item) {item.disabled = true});
+        }
+    } else if(result === 'loss') {
+        loss += 1;
+        if(loss === 5) {
+            finalScore.textContent = "You lose!"
+            button.forEach(function(item) {item.disabled = true});
+        }
+    }
+    score.textContent = `Computer: ${loss}, Player: ${win}`;
+});
