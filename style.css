@@ -3,4 +3,10 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100vh;
+    background-color: pink;
+}
+
+button {
+    margin: 12px;
 }
